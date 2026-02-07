@@ -1,0 +1,59 @@
+# =========================
+# Python / Django
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.sqlite3
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Django stuff
+*.log
+local_settings.py
+db.sqlite3
+
+# =========================
+# Environment variables / secrets
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# OS / Editor
+# =========================
+.DS_Store
+Thumbs.db
+
+# VS Code / Cursor
+.vscode/
+.cursor/
+
+# PyCharm
+.idea/
+
+# =========================
+# Node / frontend (future-proof)
+# =========================
+node_modules/
+dist/
+build/
+
+# =========================
+# Test / coverage
+# =========================
+.coverage
+htmlcov/
+.pytest_cache/
+
+# =========================
+# Migrations (keep them!)
+# =========================
+# DO NOT ignore migrations
+# web/migrations/*.py
+# !web/migrations/__init__.py

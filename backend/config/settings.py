@@ -20,6 +20,14 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR.parent / ".env")  # loads gmail-cleaner/.env
 
+GOOGLE_CLIENT_SECRETS_FILE = os.getenv("GOOGLE_CLIENT_SECRETS_FILE")
+GOOGLE_OAUTH_REDIRECT_URI = os.getenv("GOOGLE_OAUTH_REDIRECT_URI")
+
+if not GOOGLE_CLIENT_SECRETS_FILE:
+    raise RuntimeError("GOOGLE_CLIENT_SECRETS_FILE is not set in .env")
+
+if not GOOGLE_OAUTH_REDIRECT_URI:
+    raise RuntimeError("GOOGLE_OAUTH_REDIRECT_URI is not set in .env")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -43,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'web',
+    'gmail',
 ]
 
 MIDDLEWARE = [

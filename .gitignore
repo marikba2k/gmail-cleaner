@@ -23,8 +23,8 @@ db.sqlite3
 .env
 .env.*
 !.env.example
-credentials/google_client.json
-
+backend/credentials/
+backend/credentials/*.json
 # =========================
 # OS / Editor
 # =========================

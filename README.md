@@ -38,15 +38,14 @@ A clean, transparent, and rule-based Gmail inbox cleaner built with **Python (Dj
 ## 🗂️ Project Structure
 
 gmail-cleaner/
-│
-├── backend/
-│ ├── config/ # Django project settings
-│ ├── web/ # Main app (views, templates)
-│ └── manage.py
-│
-├── .env
-├── README.md
-└── .gitignore
+ backend/
+   config/ # Django project settings
+        web/ # Main app (views, templates)
+        manage.py
+
+ .env
+ README.md
+ .gitignore
 
 
 ---

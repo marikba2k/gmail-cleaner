@@ -51,6 +51,7 @@ build/
 .coverage
 htmlcov/
 .pytest_cache/
+cmd.txt
 
 # =========================
 # Migrations (keep them!)
@@ -58,3 +59,6 @@ htmlcov/
 # DO NOT ignore migrations
 # web/migrations/*.py
 # !web/migrations/__init__.py
+
+
+cmd.txt

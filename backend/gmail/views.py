@@ -7,8 +7,10 @@ import os
 
 from .models import GoogleCredential
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_GET
 from django.http import JsonResponse
 from .services import get_gmail_service
+from .models import Rule
 
 SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"]
 
@@ -104,3 +106,25 @@ def inbox_sample(request):
         })
 
     return JsonResponse({"count": len(items), "items": items})
+
+@require_GET
+@login_required
+def preview_rule(request, rule_id):
+    rule = Rule.objects.get(id=rule_id, user=request.user)
+    svc = get_gmail_service(request.user)
+
+    res = svc.users().messages().list(
+        userId="me",
+        q=rule.query,
+        maxResults=10,
+    ).execute()
+
+    msgs = res.get("messages", [])
+    total = res.get("resultSizeEstimate", 0)
+
+    return JsonResponse({
+        "rule": rule.name,
+        "query": rule.query,
+        "estimated_matches": total,
+        "sample_count": len(msgs),
+    })

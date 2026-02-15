@@ -8,4 +8,6 @@ urlpatterns = [
     
     path("api/gmail/profile/", views.gmail_profile, name="gmail_profile"),
     path("api/gmail/inbox-sample/", views.inbox_sample, name="inbox_sample"),
+    path("api/rules/<int:rule_id>/preview/", views.preview_rule, name="preview_rule"),
+
 ]

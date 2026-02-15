@@ -6,6 +6,9 @@ from google_auth_oauthlib.flow import Flow
 import os
 
 from .models import GoogleCredential
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from .services import get_gmail_service
 
 SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"]
 
@@ -68,3 +71,36 @@ def oauth_callback(request):
 def disconnect(request):
     GoogleCredential.objects.filter(user=request.user).delete()
     return redirect("/dashboard/")
+
+login_required
+def gmail_profile(request):
+    svc = get_gmail_service(request.user)
+    profile = svc.users().getProfile(userId="me").execute()
+    return JsonResponse({"emailAddress": profile.get("emailAddress")})
+
+@login_required
+def inbox_sample(request):
+    svc = get_gmail_service(request.user)
+
+    # Search inbox, newest first
+    res = svc.users().messages().list(userId="me", q="in:inbox", maxResults=10).execute()
+    msgs = res.get("messages", [])
+
+    items = []
+    for m in msgs:
+        msg = svc.users().messages().get(
+            userId="me",
+            id=m["id"],
+            format="metadata",
+            metadataHeaders=["Subject", "From", "Date"],
+        ).execute()
+
+        headers = {h["name"]: h["value"] for h in msg.get("payload", {}).get("headers", [])}
+        items.append({
+            "id": m["id"],
+            "from": headers.get("From"),
+            "subject": headers.get("Subject"),
+            "date": headers.get("Date"),
+        })
+
+    return JsonResponse({"count": len(items), "items": items})

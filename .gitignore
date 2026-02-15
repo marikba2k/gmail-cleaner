@@ -25,6 +25,7 @@ db.sqlite3
 !.env.example
 backend/credentials/
 backend/credentials/*.json
+cmd.txt
 # =========================
 # OS / Editor
 # =========================
